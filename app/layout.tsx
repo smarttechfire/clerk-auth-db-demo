@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Inter, Poppins } from "next/font/google";
 import "./globals.css";
-import { ClerkProvider } from "@clerk/nextjs";
+import { ClerkLoaded, ClerkLoading, ClerkProvider } from "@clerk/nextjs";
 import NavBar from "@/components/NavBar";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -14,7 +14,7 @@ export const metadata: Metadata = {
 const poppins = Poppins({
   subsets: ['latin'],
   variable: '--font-poppins',
-  weight: ['100','200','300','400','500','600','700','800','900'],
+  weight: ['100', '200', '300', '400', '500', '600', '700', '800', '900'],
 })
 
 export default function RootLayout({
@@ -27,10 +27,15 @@ export default function RootLayout({
       <html lang="en">
         <body className={poppins.className}>
           <div className=" mx-36 text-2xl">
-            <NavBar/>
-            <div className=" flex flex-col items-center text-center mt-32">
+            <ClerkLoading>
+              <div className=" flex flex-col items-center text-center mt-32">
+                LOADING...
+              </div>
+            </ClerkLoading>
+            <ClerkLoaded>
+              <NavBar />
               {children}
-            </div>
+            </ClerkLoaded>
           </div>
         </body>
       </html>
